@@ -58,33 +58,51 @@ li {
     border-radius: 20px;
     margin-bottom: 10px;
     background-color: white;
+    padding: 5px;
 }
 
 span {
     margin: 10px;
 }
 
-.btnSuccess{
-    background-color: lawngreen;
-    color: black;
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 20px;
-    cursor: pointer;
-    margin-right: 5px;
+.note-title {
+    font-size: 1rem;
+    margin-right: 10px;
 }
-.btnDanger{
-    background-color: red;
-    color: black;
-    width: 40px;
-    height: 40px;
+
+.note-title.completed {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.note-actions {
+    display: inline-flex;
+    gap: 5px;
+    margin-right: 10px;
+}
+
+
+.btn-toggle, .btn-remove {
+    padding: 2px 8px;
     border: none;
-    border-radius: 15px;
-    text-align: center;
-    font-size: 20px;
+    border-radius: 3px;
     cursor: pointer;
-    margin-right: 5px;
+    font-size: 0.9rem;
+}
+
+
+.btn-success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-warning {
+    background-color: #FFC107;
+    color: black;
+}
+
+
+.btn-remove {
+    background-color: #F44336;
+    color: white;
 }

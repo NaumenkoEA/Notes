@@ -2,23 +2,17 @@ const inputElement = document.getElementById("input1");
 const btnAdd = document.getElementById("btnAddNotes");
 const listNotes = document.getElementById("notes");
 
-const inputNotes = [
-    {
-    title: 'Hekko', completed: false,
-    },
-    {
-    title: 'ohh yesss', completed: true,
-    }
-]
+const inputNotes = [{
+    title: '', completed: false,
+}]
 
 
 function renderNotes() {
+    listNotes.innerHTML = "";
 
     for (let i = 0; i < inputNotes.length; i++) {
-        listNotes.insertAdjacentHTML('beforeend', getTemplateNotes(inputNotes[i],i));
+        listNotes.insertAdjacentHTML('beforeend', getTemplateNotes(inputNotes[i], i));
     }
-
-
 }
 
 btnAdd.onclick = function () {
@@ -29,7 +23,8 @@ btnAdd.onclick = function () {
         title: inputElement.value, completed: false,
     }
 
-    listNotes.insertAdjacentHTML('beforeend', getTemplateNotes(newNote));
+    inputNotes.push(newNote);
+    renderNotes();
 
     inputElement.value = "";
 }
@@ -37,13 +32,31 @@ btnAdd.onclick = function () {
 
 renderNotes();
 
-function getTemplateNotes(note , index) {
-    return `<li>
-        <span >${note.title}</span>
-        <span>
-                <button class="btnSuccess">&check;</button>
-                <button class="btnDanger">&times;</button>
-            </span>
+function getTemplateNotes(note, index) {
+    return `<li >
+      <span class="note-title ${note.completed ? 'completed' : ''}">${note.title}</span>
+        <div class="note-actions">
+            <button class="btn-toggle ${note.completed ? 'btn-warning' : 'btn-success'}" 
+            data-index="${index}" 
+            data-type="toggle">&check;</button>
+    <button class="btn-remove" 
+            data-index="${index}" 
+            data-type="remove">&times;</button>
+        </div>
     </li>`
 
+}
+
+listNotes.onclick = function (e) {
+    if (e.target.dataset.index) {
+        const index = Number(e.target.dataset.index);
+        const type = e.target.dataset.type;
+
+        if (type === "toggle") {
+            inputNotes[index].completed = !inputNotes[index].completed;
+        } else if (type === "remove") {
+            inputNotes.splice(index, 1);
+        }
+    }
+    renderNotes();
 }
